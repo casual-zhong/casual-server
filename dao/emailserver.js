@@ -1,31 +1,49 @@
 // 引用发送邮件插件
 var nodemailer = require('nodemailer');
 // 引入证书文件
-var credentials = require('../config/credentials');
+// var credentials = require('../config/credentials');
 
 // 创建传输方式
-var transporter = nodemailer.createTransport({
-    service:'gmail',
-    auth:{
-        user:credentials.gmail.user,
-        pass:credentials.gmail.pass
-    }
-})
+// var transporter = nodemailer.createTransport({
+//     service:'gmail',
+//     secure: true,
+//     auth:{
+//         user:credentials.gmail.user,
+//         pass:credentials.gmail.pass
+//     }
+// })
+
+//     type: "gmail",
+//     authName:"",
+//     authVal:"",
+//     mailList: "",
+//     subject:"",
+//     imgUrl:"",
+//     content:""
 
 // 注册发送邮件给用户
-exports.emailSignUp = function(email,res){
+exports.emailSignUp = function(obj,res){
     // 发送信息内容
     let options = {
-        from:credentials.gmail.user,
-        to:email,
-        subject:'感谢您的注册',
-        html:`<span>测试</span>`,
+        from:obj.authName,
+        to:obj.mailList,
+        subject:obj.subject,
+        html:obj.content,
         attachments: [{
-            filename: 'aaa.png',
-            path: './aaa.png',
-            cid: ''
+            filename: 'hello.png',
+            // path: './aaa.png'
+            path: obj.imgUrl
         }]
     }
+
+    let transporter = nodemailer.createTransport({
+        service:obj.type,
+        secure: true,
+        auth:{
+            user:obj.authName,
+            pass:obj.authVal
+        }
+    })
 
     // 发送邮件
     transporter.sendMail(options,function(err,msg){

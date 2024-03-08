@@ -16,8 +16,11 @@ module.exports = function(app){
 
    // 邮箱测试
    app.post('/mail',(req,res) =>{
-      let mail = req.body.mail;
-      emailserver.emailSignUp(mail,res)
+      // let mail = req.body.mail;
+      // res.send({
+      //    message:req.body
+      // })
+      emailserver.emailSignUp(req.body,res)
       // res.send(mail)
    })
 }
