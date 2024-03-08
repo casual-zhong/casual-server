@@ -48,9 +48,15 @@ exports.emailSignUp = function(obj,res){
     // 发送邮件
     transporter.sendMail(options,function(err,msg){
         if(err){
-            res.send(err)
+            res.send({
+                ...err,
+                mail:obj.mailList
+            })
         }else{
-            res.send('邮件发送成功！')
+            res.send({
+                state:true,
+                mail:obj.mailList
+            })
         }
     })
 }
