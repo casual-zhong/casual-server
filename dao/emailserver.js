@@ -30,7 +30,7 @@ exports.emailSignUp = function(obj,res){
         subject:obj.subject,
         html:obj.content,
         attachments: [{
-            filename: 'hello.png',
+            filename: 'DT-69.png',
             // path: './aaa.png'
             path: obj.imgUrl
         }]
@@ -50,11 +50,14 @@ exports.emailSignUp = function(obj,res){
         if(err){
             res.send({
                 ...err,
+                state:false,
+                message:"邮件发送失败！",
                 mail:obj.mailList
             })
         }else{
             res.send({
                 state:true,
+                message:"邮件发送成功！",
                 mail:obj.mailList
             })
         }
